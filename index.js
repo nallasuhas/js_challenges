@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () =>{
         const button = document.createElement('button')
         button.className = 'btn';
        // check if it is in local storage
-        const favs = JSON.parse(localStorage.getItem('favs'))
+        const favs = Store.getBooks()
         const isPresent = favs.some((item) => (item.name === book.name )) 
         if(isPresent) { 
             button.innerHTML = 'Remove from Favourites'
@@ -158,7 +158,7 @@ input.addEventListener('keyup', (e) => {
 
 
 
-// add evenr listener on menu-bar
+// add event listener on menu-bar
 
 const menuBar = document.querySelector('.menu-bar')
 
