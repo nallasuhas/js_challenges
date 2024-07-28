@@ -3,6 +3,7 @@
 const template = document.querySelector('.template')
 
 const keys = document.querySelector('.keys')
+const input = document.querySelector('.use-keyboard-input')
  
 //store all the configuration related to virtual keyboard
 const keyboard = {
@@ -20,25 +21,14 @@ const keyboard = {
         //to open the virtual keyboard and 
         open: ( oninput, onclose) =>{
              document.querySelector('.keyboard').classList.remove('keyboard--hidden')
-             keyboard.eventhandler.oninput = oninput;
-             keyboard.eventhandler.onclose = onclose;
+           
         },
         //to close the virtual keyboard and reset the value
         close: () => {
-            keyboard.value = '';
-            keyboard.eventhandler.oninput = oninput;
-            keyboard.eventhandler.onclose = onclose;
+            input.value = '';
             document.querySelector('.keyboard').classList.add('keyboard--hidden')
         },
-        eventhandler: {
-            oninput: null,
-            onclose: null,
-        },
-        triggerEvent: (handlerName) =>{
-            if(typeof keyboard.eventhandler[handlerName] === 'function'){
-              keyboard.eventhandler[handlerName](keyboard.value)
-            }
-        }
+       
 }
 
 
@@ -53,11 +43,13 @@ function createKeys(){
     ]
     
     
+    
      
     keyLayout.forEach((key) => {
         //clone the template children
         const btn = template.content.cloneNode(true).children[0];
         const icon = btn.querySelector('.material-icons');
+       
         //to insert a line break after these keys
         const insertLineBreak = ['backspace', 'p', 'enter', '?'].indexOf(key) !== -1;
         
@@ -68,10 +60,11 @@ function createKeys(){
                  icon.innerText = 'backspace';
                  keys.appendChild(btn);
                  btn.addEventListener('click', () =>{
-                    const preValue = keyboard.value
-                    keyboard.value = preValue.substring(0,preValue.length - 1)
-                    console.log(keyboard.value);
-                    keyboard.triggerEvent('oninput')
+                    input.focus()
+                    const preValue = input.value
+                    input.value = preValue.substring(0,preValue.length - 1)
+                    console.log(input.value);
+                   
                  })
 
                  break;
@@ -82,9 +75,11 @@ function createKeys(){
             icon.innerText = 'keyboard_capslock';
             keys.appendChild(btn);
             btn.addEventListener('click', () => {
+                input.focus()
                 keyboard.capslock = !keyboard.capslock
                 btn.classList.toggle('key--activated')
-                keyboard.capslockToggle()
+               
+               
             })
 
             break;
@@ -95,8 +90,11 @@ function createKeys(){
             icon.innerText = 'keyboard_return';
             keys.appendChild(btn);
             btn.addEventListener('click', () => {
-                keyboard.value += '\n';
-                keyboard.triggerEvent('oninput')
+                input.focus()
+                keyboard.value = '\n';
+               
+                input.value = input.value + keyboard.value
+               
                
             })
 
@@ -108,8 +106,11 @@ function createKeys(){
             icon.innerText = 'space_bar';
             keys.appendChild(btn);
             btn.addEventListener('click', () => {
-                 keyboard.value += ' ';
-                 keyboard.triggerEvent('oninput')
+                input.focus()
+                 keyboard.value = ' ';
+                 
+                 input.value = input.value + keyboard.value
+              
                 
             })
 
@@ -122,7 +123,7 @@ function createKeys(){
             keys.appendChild(btn);
             btn.addEventListener('click', () => {
                  keyboard.close();
-                 keyboard.triggerEvent('onclose')
+                
                 
             })
 
@@ -133,8 +134,14 @@ function createKeys(){
             btn.innerHTML = key.toLowerCase();
             keys.appendChild(btn);
             btn.addEventListener('click', () => {
-                keyboard.value += keyboard.capslock ? key.toUpperCase() : key.toLowerCase();
-                keyboard.triggerEvent('oninput')
+                input.focus();
+                keyboard.value = keyboard.capslock ? key.toUpperCase() : key.toLowerCase();
+                
+                 input.value = input.value + keyboard.value
+                
+                console.log(input.value);
+
+              
                 
             })
 
@@ -156,15 +163,12 @@ document.addEventListener('DOMContentLoaded' ,() => {
     createKeys();
     //select every input field that can use virtual keyboard and add event listener for focus event, the callback for it should open the virtual keyboard and also pass the input value as closure, so that triggerEvent is able to modify the value of input field for every keystroke on virtual keyboard
     document.querySelectorAll('.use-keyboard-input').forEach((element) => {      element.addEventListener('focus', (e) =>{ 
-          keyboard.open(currentValue => {
-           element.value = currentValue;
-           console.log(element.value);
-       });
+          keyboard.open();
       }) 
-    //   element.addEventListener('input', (e) => {
-    //     element.value = e.target.value;
-    //     console.log(element.value);
-    //    })
+      element.addEventListener('input', (e) => {
+        element.value = e.target.value;
+        console.log(element.value);
+       })
     })
     
 })
