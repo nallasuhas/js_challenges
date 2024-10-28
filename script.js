@@ -75,8 +75,10 @@ function createKeys(){
             icon.innerText = 'keyboard_capslock';
             keys.appendChild(btn);
             btn.addEventListener('click', () => {
+                
                 input.focus()
                 keyboard.capslock = !keyboard.capslock
+                keyboard.capslockToggle()
                 btn.classList.toggle('key--activated')
                
                
