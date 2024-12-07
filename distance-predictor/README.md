@@ -1,1 +1,1 @@
-- live site: https://github.com/nallasuhas/js_challenges/distance-predictor/index.html
+- live site: https://nallasuhas.github.io/js_challenges/distance-predictor/index.html
