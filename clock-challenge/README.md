@@ -1,1 +1,1 @@
-live link: https://nallasuhas.github.io/clock-challenge/
+live link: https://nallasuhas.github.io/js_challenges/clock-challenge/index.html
