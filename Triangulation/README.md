@@ -1,0 +1,1 @@
+- live site: https://nallasuhas.github.io/js_challenges/Triangulation/index.html
