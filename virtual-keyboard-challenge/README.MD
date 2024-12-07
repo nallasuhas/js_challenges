@@ -1,1 +1,1 @@
-live site: https://nallasuhas.github.io/js_challenges/virtual-keyboard-challenge/
+live site: https://nallasuhas.github.io/js_challenges/virtual-keyboard-challenge/index.html
