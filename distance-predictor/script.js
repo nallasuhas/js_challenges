@@ -8,7 +8,7 @@ canvas.height = window.innerHeight;
 
 window.addEventListener("deviceorientation", onOrientationChange)
 document.getElementById('slider').onchange = (e) => {
-    document.getElementById('label').innerHTML = "Distance to reference: "+ e.target.value + "m"; 
+  document.getElementById('label').innerHTML = "Distance to reference: "+ e.target.value + "m"; 
 }
 
 }
